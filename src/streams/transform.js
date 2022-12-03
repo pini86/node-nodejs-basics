@@ -2,9 +2,9 @@ import { Transform, pipeline } from "stream";
 
 const transform = async () => {
   const reverseStream = new Transform({
-    transform(data, enc, cb) {
-      this.push(`${data.toString().trim().split("").reverse().join("")}\n`);
-      cb();
+    transform(chunk, encoding, callback) {
+      this.push(`${chunk.toString().trim().split("").reverse().join("")}\n`);
+      callback();
     },
   });
   pipeline(process.stdin, reverseStream, process.stdout, (error) => {
